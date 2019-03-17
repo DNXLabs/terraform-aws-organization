@@ -6,7 +6,7 @@ This terraform module creates a simple AWS organization.
 
 ```hcl
 module "org" {
-  source = "source   = "git::https://github.com/DNXLabs/terraform-aws-organization.git?ref=0.0.2"
+  source = "git::https://github.com/DNXLabs/terraform-aws-organization.git?ref=0.0.2"
 }
 ```
 
