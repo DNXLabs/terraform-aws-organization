@@ -12,12 +12,19 @@ module "org" {
 
 Deploy this module to your _master_ account.
 
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|:----:|:-----:|:-----:|
+| name | Name for this organization (not actually used in API call) | string | n/a | yes |
+
 ## Outputs
 
 | Name | Description |
 |------|-------------|
-| organization\_id | ID of organization created |
-| organization\_root\_id | ID of the root Organizational Unit of the organization created |
+| id | ID of organization created |
+| name |  |
+| root\_id | ID of the root Organizational Unit of the organization created |
 
 ## Authors
 
