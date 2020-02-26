@@ -1,23 +1,23 @@
 resource "aws_cloudtrail" "audit" {
   name                  = "${var.name}-cloudtrail"
-  s3_bucket_name        = "${aws_s3_bucket.cloudtrail.id}"
+  s3_bucket_name        = aws_s3_bucket.cloudtrail.id
   is_multi_region_trail = true
   is_organization_trail = true
-  kms_key_id            = "${aws_kms_key.cloudtrail.arn}"
+  kms_key_id            = aws_kms_key.cloudtrail.arn
 
   event_selector {
     read_write_type           = "All"
     include_management_events = true
   }
 
-  cloud_watch_logs_group_arn = "${aws_cloudwatch_log_group.cloudtrail.arn}"
-  cloud_watch_logs_role_arn  = "${aws_iam_role.cloudtrail_logs.arn}"
+  cloud_watch_logs_group_arn = aws_cloudwatch_log_group.cloudtrail.arn
+  cloud_watch_logs_role_arn  = aws_iam_role.cloudtrail_logs.arn
 
   lifecycle {
-    ignore_changes = ["event_selector"]
+    ignore_changes = [event_selector]
   }
 
-  depends_on = ["aws_organizations_organization.org"]
+  depends_on = [aws_organizations_organization.org]
 }
 
 resource "aws_iam_role" "cloudtrail_logs" {
@@ -42,7 +42,7 @@ EOF
 
 resource "aws_iam_role_policy" "cloudwatch" {
   name_prefix = "cloudtrail_logs"
-  role        = "${aws_iam_role.cloudtrail_logs.id}"
+  role        = aws_iam_role.cloudtrail_logs.id
 
   policy = <<EOF
 {
@@ -66,7 +66,7 @@ EOF
 
 resource "aws_cloudwatch_log_group" "cloudtrail" {
   name       = "${var.name}-cloudtrail"
-  kms_key_id = "${aws_kms_key.cloudtrail.arn}"
+  kms_key_id = aws_kms_key.cloudtrail.arn
 }
 
 resource "aws_s3_bucket" "cloudtrail" {
@@ -75,7 +75,7 @@ resource "aws_s3_bucket" "cloudtrail" {
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
-        kms_master_key_id = "${aws_kms_key.cloudtrail.arn}"
+        kms_master_key_id = aws_kms_key.cloudtrail.arn
         sse_algorithm     = "aws:kms"
       }
     }
@@ -83,7 +83,7 @@ resource "aws_s3_bucket" "cloudtrail" {
 }
 
 resource "aws_s3_bucket_policy" "cloudtrail" {
-  bucket = "${aws_s3_bucket.cloudtrail.id}"
+  bucket = aws_s3_bucket.cloudtrail.id
 
   policy = <<POLICY
 {

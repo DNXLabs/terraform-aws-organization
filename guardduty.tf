@@ -4,6 +4,6 @@ resource "aws_guardduty_detector" "master" {
 
 resource "aws_ssm_parameter" "guardduty_id" {
   name  = "/account/master/guardduty_id"
-  type  = "String"
-  value = "${aws_guardduty_detector.master.id}"
+  type  = string
+  value = aws_guardduty_detector.master.id
 }

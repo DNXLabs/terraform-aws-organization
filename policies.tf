@@ -19,10 +19,11 @@ resource "aws_organizations_policy" "config" {
 }
 CONTENT
 
-  depends_on = ["aws_organizations_organization.org"]
+
+  depends_on = [aws_organizations_organization.org]
 }
 
 resource "aws_organizations_policy_attachment" "config_root" {
-  policy_id = "${aws_organizations_policy.config.id}"
-  target_id = "${lookup(aws_organizations_organization.org.roots[0], "id")}"
+  policy_id = aws_organizations_policy.config.id
+  target_id = aws_organizations_organization.org.roots[0]["id"]
 }
