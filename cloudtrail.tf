@@ -1,17 +1,18 @@
 resource "aws_cloudtrail" "audit" {
+  count                 = var.cloudtrail ? 1 : 0
   name                  = "${var.name}-cloudtrail"
-  s3_bucket_name        = aws_s3_bucket.cloudtrail.id
+  s3_bucket_name        = aws_s3_bucket.cloudtrail[0].id
   is_multi_region_trail = true
   is_organization_trail = true
-  kms_key_id            = aws_kms_key.cloudtrail.arn
+  kms_key_id            = aws_kms_key.cloudtrail[0].arn
 
   event_selector {
     read_write_type           = "All"
     include_management_events = true
   }
 
-  cloud_watch_logs_group_arn = aws_cloudwatch_log_group.cloudtrail.arn
-  cloud_watch_logs_role_arn  = aws_iam_role.cloudtrail_logs.arn
+  cloud_watch_logs_group_arn = aws_cloudwatch_log_group.cloudtrail[0].arn
+  cloud_watch_logs_role_arn  = aws_iam_role.cloudtrail_logs[0].arn
 
   lifecycle {
     ignore_changes = [event_selector]
@@ -21,6 +22,7 @@ resource "aws_cloudtrail" "audit" {
 }
 
 resource "aws_iam_role" "cloudtrail_logs" {
+  count       = var.cloudtrail ? 1 : 0
   name_prefix = "cloudtrail_logs"
 
   assume_role_policy = <<EOF
@@ -41,8 +43,9 @@ EOF
 }
 
 resource "aws_iam_role_policy" "cloudwatch" {
+  count       = var.cloudtrail ? 1 : 0
   name_prefix = "cloudtrail_logs"
-  role        = aws_iam_role.cloudtrail_logs.id
+  role        = aws_iam_role.cloudtrail_logs[0].id
 
   policy = <<EOF
 {
@@ -65,17 +68,19 @@ EOF
 }
 
 resource "aws_cloudwatch_log_group" "cloudtrail" {
+  count      = var.cloudtrail ? 1 : 0
   name       = "${var.name}-cloudtrail"
-  kms_key_id = aws_kms_key.cloudtrail.arn
+  kms_key_id = aws_kms_key.cloudtrail[0].arn
 }
 
 resource "aws_s3_bucket" "cloudtrail" {
+  count         = var.cloudtrail ? 1 : 0
   bucket_prefix = "${var.name}-cloudtrail"
 
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
-        kms_master_key_id = aws_kms_key.cloudtrail.arn
+        kms_master_key_id = aws_kms_key.cloudtrail[0].arn
         sse_algorithm     = "aws:kms"
       }
     }
@@ -83,7 +88,8 @@ resource "aws_s3_bucket" "cloudtrail" {
 }
 
 resource "aws_s3_bucket_policy" "cloudtrail" {
-  bucket = aws_s3_bucket.cloudtrail.id
+  count  = var.cloudtrail ? 1 : 0
+  bucket = aws_s3_bucket.cloudtrail[0].id
 
   policy = <<POLICY
 {
@@ -96,7 +102,7 @@ resource "aws_s3_bucket_policy" "cloudtrail" {
               "Service": "cloudtrail.amazonaws.com"
             },
             "Action": "s3:GetBucketAcl",
-            "Resource": "${aws_s3_bucket.cloudtrail.arn}"
+            "Resource": "${aws_s3_bucket.cloudtrail[0].arn}"
         },
         {
             "Sid": "AWSCloudTrailWrite",
@@ -105,7 +111,7 @@ resource "aws_s3_bucket_policy" "cloudtrail" {
               "Service": "cloudtrail.amazonaws.com"
             },
             "Action": "s3:PutObject",
-            "Resource": "${aws_s3_bucket.cloudtrail.arn}/*",
+            "Resource": "${aws_s3_bucket.cloudtrail[0].arn}/*",
             "Condition": {
                 "StringEquals": {
                     "s3:x-amz-acl": "bucket-owner-full-control"

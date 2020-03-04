@@ -1,4 +1,5 @@
 resource "aws_kms_key" "cloudtrail" {
+  count                   = var.cloudtrail ? 1 : 0
   deletion_window_in_days = 7
   description             = "CloudTrail Log Encryption Key"
   enable_key_rotation     = true
