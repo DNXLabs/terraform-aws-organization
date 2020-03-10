@@ -16,8 +16,3 @@ output "roots_id" {
 output "name" {
   value = var.name
 }
-
-output "guardduty_id" {
-  value       = aws_guardduty_detector.master.id
-  description = "GuardDuty Detect ID for the master account"
-}
