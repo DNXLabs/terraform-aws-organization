@@ -15,24 +15,13 @@ module "org" {
 
 Deploy this module to your _master_ account.
 
-## Inputs
-
-| Name | Description | Type | Default | Required |
-|------|-------------|:----:|:-----:|:-----:|
-| name | Name for this organization (not actually used in API call) | string | n/a | yes |
-
-## Outputs
-
-| Name | Description |
-|------|-------------|
-| id | ID of organization created |
-| name |  |
-| root\_id | ID of the root Organizational Unit of the organization created |
+<!--- BEGIN_TF_DOCS --->
+<!--- END_TF_DOCS --->
 
 ## Authors
 
-Module managed by [Allan Denot](https://github.com/adenot).
+Module managed by [DNX Solutions](https://github.com/DNXLabs).
 
 ## License
 
-Apache 2 Licensed. See LICENSE for full details.
+Apache 2 Licensed. See [LICENSE](https://github.com/DNXLabs/terraform-aws-organization/blob/master/LICENSE) for full details.
