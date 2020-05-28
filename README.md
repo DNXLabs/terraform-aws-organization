@@ -16,6 +16,33 @@ module "org" {
 Deploy this module to your _master_ account.
 
 <!--- BEGIN_TF_DOCS --->
+## Requirements
+
+| Name | Version |
+|------|---------|
+| terraform | >= 0.12.20 |
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| aws | n/a |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| already\_exists | Whether the organization already exists or needs to be created | `bool` | `false` | no |
+| name | Name for this organization (not actually used in API call) | `any` | n/a | yes |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| id | ID of organization created |
+| name | n/a |
+| roots\_id | Roots of organization created |
+
 <!--- END_TF_DOCS --->
 
 ## Authors
