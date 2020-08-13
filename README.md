@@ -7,7 +7,6 @@ This module requires:
 
 This module verifies if the AWS organization exists, if not, It creates. 
 
-More Information: https://dnxlabs.slab.com/public/t7q41txo
 
 [![Lint Status](https://github.com/DNXLabs/terraform-aws-organization/workflows/Lint/badge.svg)](https://github.com/DNXLabs/terraform-aws-organization/actions)
 [![LICENSE](https://img.shields.io/github/license/DNXLabs/terraform-aws-organization)](https://github.com/DNXLabs/terraform-aws-organization/blob/master/LICENSE)
