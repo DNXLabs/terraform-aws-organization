@@ -3,7 +3,14 @@
 [![Lint Status](https://github.com/DNXLabs/terraform-aws-organization/workflows/Lint/badge.svg)](https://github.com/DNXLabs/terraform-aws-organization/actions)
 [![LICENSE](https://img.shields.io/github/license/DNXLabs/terraform-aws-organization)](https://github.com/DNXLabs/terraform-aws-organization/blob/master/LICENSE)
 
-This terraform module creates a simple AWS organization.
+This Terraform module creates a simple AWS Organization.
+
+Deploy this module to your _master_ account.
+
+This module verifies if the AWS organization exists, if not, It creates.
+
+The following resources will be created:
+- Identity and Access Management(IAM) policies for the organization
 
 ## Usage
 
@@ -12,8 +19,6 @@ module "org" {
   source = "git::https://github.com/DNXLabs/terraform-aws-organization.git?ref=0.0.2"
 }
 ```
-
-Deploy this module to your _master_ account.
 
 <!--- BEGIN_TF_DOCS --->
 
