@@ -39,6 +39,7 @@ module "org" {
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
 | already\_exists | Whether the organization already exists or needs to be created | `bool` | `false` | no |
+| enable\_aws\_sso | Whether the AWS SSO needs to be enabled when creating a new organisation | `bool` | `false` | no |
 | name | Name for this organization (not actually used in API call) | `any` | n/a | yes |
 
 ## Outputs
