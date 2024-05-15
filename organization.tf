@@ -5,6 +5,8 @@ resource "aws_organizations_organization" "org" {
     "cloudtrail.amazonaws.com",
     "config.amazonaws.com",
     var.enable_aws_sso ? "sso.amazonaws.com" : "",
+    var.enable_compute_optimizer ? "compute-optimizer.amazonaws.com" : "",
+    var.enable_cost_optimizer ? "cost-optimization-hub.bcm.amazonaws.com" : "",
   ]
 
   enabled_policy_types = ["SERVICE_CONTROL_POLICY"]
